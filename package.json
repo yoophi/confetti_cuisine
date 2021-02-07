@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/yoophi/confetti_cuisine/issues"
   },
-  "homepage": "https://github.com/yoophi/confetti_cuisine#readme"
+  "homepage": "https://github.com/yoophi/confetti_cuisine#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }

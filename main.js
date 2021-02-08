@@ -4,9 +4,18 @@ const port = 3000,
   express = require("express"),
   app = express();
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 app.use((req, res, next) => {
-  cosole.log(`request made to: ${req.url}`);
+  console.log(`request made to: ${req.url}`);
   next();
+});
+
+app.post("/", (req, res) => {
+  console.log(req.body);
+  console.log(req.query);
+  res.send("POST Successful!");
 });
 
 app.get("/items/:vegetable", (req, res) => {

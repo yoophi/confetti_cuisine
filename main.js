@@ -2,7 +2,8 @@
 
 const port = 3000,
   express = require("express"),
-  app = express();
+  app = express(),
+  homeController = require("./controllers/homeController");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -18,10 +19,7 @@ app.post("/", (req, res) => {
   res.send("POST Successful!");
 });
 
-app.get("/items/:vegetable", (req, res) => {
-  let veg = req.params.vegetable;
-  res.send(`This is the page for ${veg}`);
-});
+app.get("/items/:vegetable", homeController.sendReqParam);
 
 app.listen(port, () => {
   console.log(

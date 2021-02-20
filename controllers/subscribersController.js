@@ -1,7 +1,5 @@
 "use strict";
 
-const expressEjsLayouts = require("express-ejs-layouts");
-const subscriber = require("../models/subscriber");
 const Subscriber = require("../models/subscriber");
 
 exports.getAllSubscribers = (req, res, next) => {

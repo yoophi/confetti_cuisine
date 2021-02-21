@@ -51,6 +51,7 @@ app.get(
 );
 app.get("/users", usersController.index, usersController.indexView);
 app.get("/users/new", usersController.new);
+app.post("/users/create", usersController.create, usersController.redirectView);
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
 

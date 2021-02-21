@@ -5,7 +5,7 @@ const express = require("express"),
   homeController = require("./controllers/homeController"),
   errorController = require("./controllers/errorController"),
   subscribersController = require("./controllers/subscribersController"),
-    usersController = require("./controllers/usersController"),
+  usersController = require("./controllers/usersController"),
   layouts = require("express-ejs-layouts"),
   mongoose = require("mongoose"),
   Subscriber = require("./models/subscriber");
@@ -49,7 +49,8 @@ app.get(
     res.render("subscribers", { subscribers: req.data });
   }
 );
-app.get('/users', usersController.index, usersController.indexView)
+app.get("/users", usersController.index, usersController.indexView);
+app.get("/users/new", usersController.new);
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
 

@@ -49,7 +49,7 @@ app.get(
     res.render("subscribers", { subscribers: req.data });
   }
 );
-app.get('/users', usersController.index)
+app.get('/users', usersController.index, usersController.indexView)
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
 

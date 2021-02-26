@@ -49,6 +49,7 @@ a {
 .button {
   background-color: #3d41b4;
   padding: 0.3vw 3vw;
+  margin-bottom: 0.3vw;
   border-radius: 2px;
   cursor: pointer;
   display: inline-block;

@@ -73,6 +73,11 @@ router.put(
   usersController.update,
   usersController.redirectView
 );
+router.delete(
+  "/users/:id/delete",
+  usersController.delete,
+  usersController.redirectView
+);
 router.use(errorController.pageNotFoundError);
 router.use(errorController.internalServerError);
 app.use("/", router);

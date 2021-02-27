@@ -8,6 +8,7 @@ const express = require("express"),
   methodOverride = require("method-override"),
   errorController = require("./controllers/errorController"),
   homeController = require("./controllers/homeController"),
+  coursesController = require("./controllers/coursesController"),
   subscribersController = require("./controllers/subscribersController"),
   usersController = require("./controllers/usersController"),
   Subscriber = require("./models/subscriber");
@@ -47,18 +48,6 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
-router.get("/courses", homeController.showCourses);
-router.get("/contact", homeController.showSignUp);
-router.post("/contact", homeController.postedSignUpForm);
-router.get("/subscribe", subscribersController.getSubscriptionPage);
-router.post("/subscribe", subscribersController.saveSubscriber);
-router.get(
-  "/subscribers",
-  subscribersController.getAllSubscribers,
-  (req, res, next) => {
-    res.render("subscribers", { subscribers: req.data });
-  }
-);
 router.get("/users", usersController.index, usersController.indexView);
 router.get("/users/new", usersController.new);
 router.post(
@@ -78,6 +67,55 @@ router.delete(
   usersController.delete,
   usersController.redirectView
 );
+
+router.get(
+  "/subscribers",
+  subscribersController.index,
+  subscribersController.indexView
+);
+router.get("/subscribers/new", subscribersController.new);
+router.post(
+  "/subscribers/create",
+  subscribersController.create,
+  subscribersController.redirectView
+);
+router.get("/subscribers/:id/edit", subscribersController.edit);
+router.put(
+  "/subscribers/:id/update",
+  subscribersController.update,
+  subscribersController.redirectView
+);
+router.get(
+  "/subscribers/:id",
+  subscribersController.show,
+  subscribersController.showView
+);
+router.delete(
+  "/subscribers/:id/delete",
+  subscribersController.delete,
+  subscribersController.redirectView
+);
+
+router.get("/courses", coursesController.index, coursesController.indexView);
+router.get("/courses/new", coursesController.new);
+router.post(
+  "/courses/create",
+  coursesController.create,
+  coursesController.redirectView
+);
+router.get("/courses/:id/edit", coursesController.edit);
+router.put(
+  "/courses/:id/update",
+  coursesController.update,
+  coursesController.redirectView
+);
+router.get("/courses/:id", coursesController.show, coursesController.showView);
+router.delete(
+  "/courses/:id/delete",
+  coursesController.delete,
+  coursesController.redirectView
+);
+
 router.use(errorController.pageNotFoundError);
 router.use(errorController.internalServerError);
 app.use("/", router);

@@ -1,33 +1,34 @@
 "use strict";
 
 const mongoose = require("mongoose"),
-  { Schema } = mongoose;
-const userSchema = new Schema(
-  {
-    name: {
-      first: { type: String, trim: true },
-      last: { type: String, trim: true },
+  { Schema } = mongoose,
+  Subscriber = require("./subscriber"),
+  userSchema = new Schema(
+    {
+      name: {
+        first: { type: String, trim: true },
+        last: { type: String, trim: true },
+      },
+      email: { type: String, required: true, lowercase: true, unique: true },
+      zipCode: { type: Number, min: [10000, "Zip code too short"], max: 99999 },
+      password: { type: String, required: true },
+      courses: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Course",
+        },
+      ],
+      subscribedAccount: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Subscriber",
+        },
+      ],
     },
-    email: { type: String, required: true, lowercase: true, unique: true },
-    zipCode: { type: Number, min: [10000, "Zip code too short"], max: 99999 },
-    password: { type: String, required: true },
-    courses: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Course",
-      },
-    ],
-    subscribedAccount: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Subscriber",
-      },
-    ],
-  },
-  {
-    timestamps: true,
-  }
-);
+    {
+      timestamps: true,
+    }
+  );
 
 userSchema.virtual("fullName").get(function () {
   return `${this.name.first} ${this.name.last}`;

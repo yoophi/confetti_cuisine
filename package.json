@@ -25,5 +25,8 @@
     "http-status-codes": "^2.1.4",
     "method-override": "^3.0.0",
     "mongoose": "^5.11.16"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
   }
 }

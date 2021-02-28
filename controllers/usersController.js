@@ -43,7 +43,7 @@ module.exports = {
           "error",
           `Failed to create user account because: ${error.message}.`
         );
-        next(error);
+        next();
       });
   },
   show: (req, res, next) => {

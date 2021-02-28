@@ -1,11 +1,16 @@
 "use strict";
 
+const secretKey = "secret_passcode";
+
 const express = require("express"),
   app = express(),
   router = express.Router(),
   layouts = require("express-ejs-layouts"),
   mongoose = require("mongoose"),
   methodOverride = require("method-override"),
+  expressSession = require("express-session"),
+  cookieParser = require("cookie-parser"),
+  connectFlash = require("connect-flash"),
   errorController = require("./controllers/errorController"),
   homeController = require("./controllers/homeController"),
   coursesController = require("./controllers/coursesController"),
@@ -44,6 +49,22 @@ router.use(
 );
 
 router.use(express.json());
+router.use(cookieParser(secretKey));
+router.use(
+  expressSession({
+    secret: secretKey,
+    cookie: {
+      maxAge: 4000000,
+    },
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+router.use(connectFlash());
+router.use((req, res, next) => {
+  res.locals.flashMessages = req.flash();
+  next();
+});
 router.get("/", (req, res) => {
   res.render("index");
 });

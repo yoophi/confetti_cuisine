@@ -15,8 +15,7 @@ const express = require("express"),
   homeController = require("./controllers/homeController"),
   coursesController = require("./controllers/coursesController"),
   subscribersController = require("./controllers/subscribersController"),
-  usersController = require("./controllers/usersController"),
-  Subscriber = require("./models/subscriber");
+  usersController = require("./controllers/usersController");
 
 mongoose.Promise = global.Promise;
 
@@ -65,10 +64,7 @@ router.use((req, res, next) => {
   res.locals.flashMessages = req.flash();
   next();
 });
-router.get("/", (req, res) => {
-  res.render("index");
-});
-
+router.get("/", homeController.index);
 router.get("/users", usersController.index, usersController.indexView);
 router.get("/users/new", usersController.new);
 router.post(

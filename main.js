@@ -11,11 +11,13 @@ const express = require("express"),
   expressSession = require("express-session"),
   cookieParser = require("cookie-parser"),
   connectFlash = require("connect-flash"),
+  expressValidator = require("express-validator"),
   errorController = require("./controllers/errorController"),
   homeController = require("./controllers/homeController"),
-  coursesController = require("./controllers/coursesController"),
   subscribersController = require("./controllers/subscribersController"),
-  usersController = require("./controllers/usersController");
+  usersController = require("./controllers/usersController"),
+  coursesController = require("./controllers/coursesController"),
+  Subscriber = require("./models/subscriber");
 
 mongoose.Promise = global.Promise;
 
@@ -64,11 +66,13 @@ router.use((req, res, next) => {
   res.locals.flashMessages = req.flash();
   next();
 });
+router.use(expressValidator());
 router.get("/", homeController.index);
 router.get("/users", usersController.index, usersController.indexView);
 router.get("/users/new", usersController.new);
 router.post(
   "/users/create",
+  usersController.validate,
   usersController.create,
   usersController.redirectView
 );

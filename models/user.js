@@ -3,6 +3,8 @@
 const mongoose = require("mongoose"),
   { Schema } = mongoose,
   Subscriber = require("./subscriber"),
+  bcrypt = require("bcrypt"),
+  passportLocalMongoose = require("passport-local-mongoose"),
   userSchema = new Schema(
     {
       name: {
@@ -29,7 +31,6 @@ const mongoose = require("mongoose"),
       timestamps: true,
     }
   );
-const bcrypt = require("bcrypt");
 
 userSchema.virtual("fullName").get(function () {
   return `${this.name.first} ${this.name.last}`;
@@ -93,5 +94,9 @@ userSchema.methods.passwordComparison = function (inputPassword) {
   let user = this;
   return bcrypt.compare(inputPassword, user.password);
 };
+
+userSchema.plugin(passportLocalMongoose, {
+  usernameField: "email",
+});
 
 module.exports = mongoose.model("User", userSchema);

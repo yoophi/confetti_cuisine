@@ -29,6 +29,13 @@
 				<span class="button">Users</span>
 			</a>
 		</div>
+		<div class="login-status">
+            <% if (loggedIn) { %>
+				Logged in as <a href="<%= `/users/${currentUser._id}` %>"><%= currentUser.fullName %></a>
+			<% } else { %>
+                <a href="/users/login">Log In</a>
+			<% } %>
+		</div>
 	</div>
 
 	<div class="flashes">

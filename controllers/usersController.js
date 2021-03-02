@@ -27,7 +27,11 @@ module.exports = {
       });
   },
   indexView: (req, res) => {
-    res.render("users/index");
+    if (req.query.format === "json") {
+      res.json(res.locals.users);
+    } else {
+      res.render("users/index");
+    }
   },
   new: (req, res) => {
     res.render("users/new");

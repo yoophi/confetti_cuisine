@@ -55,46 +55,6 @@ userSchema.pre("save", function (next) {
   }
 });
 
-userSchema.pre("save", function (next) {
-  let user = this;
-  bcrypt
-    .hash(user.password, 10)
-    .then((hash) => {
-      user.password = hash;
-      next();
-    })
-    .catch((error) => {
-      console.log(`Error in hashing password: ${error.message}`);
-      next(error);
-    });
-});
-
-userSchema.pre("findOneAndUpdate", function (next) {
-  let that = this;
-  console.log("findOneAndUpdate", that);
-  try {
-    if (that._update.$set.password) {
-      bcrypt
-        .hash(this._update.$set.password, 10)
-        .then((hash) => {
-          that._update.$set.password = hash;
-          next();
-        })
-        .catch((error) => {
-          console.log(`Error in hashing password: ${error.message}`);
-          next(error);
-        });
-    }
-  } catch (e) {
-    console.log(`error: ${e}`);
-  }
-});
-
-userSchema.methods.passwordComparison = function (inputPassword) {
-  let user = this;
-  return bcrypt.compare(inputPassword, user.password);
-};
-
 userSchema.plugin(passportLocalMongoose, {
   usernameField: "email",
 });
